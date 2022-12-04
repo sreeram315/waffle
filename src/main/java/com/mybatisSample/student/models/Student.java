@@ -1,18 +1,33 @@
 package com.mybatisSample.student.models;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Student {
+public class Student implements Serializable {
     int id;
     String name;
 
-    private Student() {}
+    public Student() {}
+
+    public Student(int id, String name) {
+
+        this.id = id;
+        this.name = name;
+    }
 
     public static Student with(int id, String name) {
         Student s = new Student();
         s.id = id;
         s.name = name;
         return s;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getId() {

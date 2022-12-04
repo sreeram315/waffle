@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    username: root
+    url: jdbc:mysql://localhost:3306/th
+    password: sreerAM31@&
+  jpa:
+    hibernate:
+      ddl-auto: update
+cloud:
+  aws:
+    enabled: true
+    region:
+      static: ap-south-1
+    credentials:
+      access-key: AKIAYIFD4UGMQU4JIF74
+      secret-key: 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
+    queue:
+      name: waffle-add-student
+      end-point: https://sqs.ap-south-1.amazonaws.com/567279395225/waffle-add-student
+    sns:
+      enables: false
+      topic:
+        arn: arn:aws:sns:ap-south-1:567279395225:testtopic
+student:
+  cloud:
+    queue:
+      name: waffle-add-student
+      endPoint: https://sqs.ap-south-1.amazonaws.com/567279395225/waffle-add-student
+server:
+  port: 8080
+
+# for h2
+#spring.h2.console.enable=true
+#spring.datasource.driverClassName=org.h2.Driver
+#spring.datasource.url=jdbc:h2:mem:myDb
