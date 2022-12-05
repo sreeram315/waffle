@@ -1,4 +1,4 @@
-package com.waffle.queue.mapper;
+package com.waffle.infra.queue.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -14,7 +14,7 @@ public interface QueueLogMapper {
     @Select("""
             INSERT INTO queue_log(queue_name, message_uuid, inserted_at)
             VALUES (#{queue_name},
-                    #{message_uuid, typeHandler = com.waffle.queue.typehandler.UuidTypeHandler},
+                    #{message_uuid, typeHandler = com.waffle.infra.queue.typehandler.UuidTypeHandler},
                     #{inserted_at})
             """)
     void insert(@Param("queue_name") String queue_name,
@@ -24,28 +24,28 @@ public interface QueueLogMapper {
     @Update("""
             UPDATE queue_log
             SET is_pushed=true, pushed_at=#{now}
-            WHERE message_uuid=#{message_uuid, typeHandler = com.waffle.queue.typehandler.UuidTypeHandler}
+            WHERE message_uuid=#{message_uuid, typeHandler = com.waffle.infra.queue.typehandler.UuidTypeHandler}
             """)
     void update_as_pushed(@Param("message_uuid") UUID message_uuid, @Param("now") LocalDateTime now);
 
     @Update("""
             UPDATE queue_log
             SET is_consumed=true, consumed_at=#{now}
-            WHERE message_uuid=#{message_uuid, typeHandler = com.waffle.queue.typehandler.UuidTypeHandler}
+            WHERE message_uuid=#{message_uuid, typeHandler = com.waffle.infra.queue.typehandler.UuidTypeHandler}
             """)
     void update_as_consumed(@Param("message_uuid") UUID message_uuid, @Param("now") LocalDateTime now);
 
     @Update("""
             UPDATE queue_log
             SET is_received=true, received_at=#{now}
-            WHERE message_uuid=#{message_uuid, typeHandler = com.waffle.queue.typehandler.UuidTypeHandler}
+            WHERE message_uuid=#{message_uuid, typeHandler = com.waffle.infra.queue.typehandler.UuidTypeHandler}
             """)
     void update_as_received(@Param("message_uuid") UUID uuid, @Param("now") LocalDateTime now);
 
     @Update("""
             UPDATE queue_log
             SET comment=#{message}
-            WHERE message_uuid=#{message_uuid, typeHandler = com.waffle.queue.typehandler.UuidTypeHandler}
+            WHERE message_uuid=#{message_uuid, typeHandler = com.waffle.infra.queue.typehandler.UuidTypeHandler}
             """)
     void update_comment(@Param("message_uuid") UUID uuid, @Param("message") String message);
 }

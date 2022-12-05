@@ -1,7 +1,7 @@
-package com.waffle.queue.dao;
+package com.waffle.infra.queue.dao;
 
 
-import com.waffle.queue.mapper.QueueLogMapper;
+import com.waffle.infra.queue.mapper.QueueLogMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.waffle.queue.config;
+package com.waffle.infra.queue.config;
 
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;

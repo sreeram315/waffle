@@ -1,4 +1,4 @@
-package com.waffle.queue.service;
+package com.waffle.infra.queue.service;
 
 import java.util.UUID;
 
