@@ -1,8 +1,8 @@
-package com.mybatisSample.student.dao;
+package com.waffle.student.dao;
 
-import com.mybatisSample.student.exceptions.StudentNotFoundException;
-import com.mybatisSample.student.mapper.StudentMapper;
-import com.mybatisSample.student.models.Student;
+import com.waffle.student.exceptions.StudentNotFoundException;
+import com.waffle.student.mapper.StudentMapper;
+import com.waffle.student.models.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,9 +20,9 @@ public class StudentDao {
         return student;
     }
 
-    public Student insert(int id, String name) {
+    public void insert(int id, String name) {
         studentMapper.insertStudent(id, name);
-        return this.getStudent(id);
+        this.getStudent(id);
     }
 
     public void insert(Student student) {

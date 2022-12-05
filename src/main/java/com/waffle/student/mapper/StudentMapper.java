@@ -1,6 +1,6 @@
-package com.mybatisSample.student.mapper;
+package com.waffle.student.mapper;
 
-import com.mybatisSample.student.models.Student;
+import com.waffle.student.models.Student;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -12,7 +12,7 @@ public interface StudentMapper {
     @Select("""
             SELECT id, name
             FROM student
-            WHERE id = #{id, typeHandler = com.mybatisSample.student.typehandler.TestTypeHandler}
+            WHERE id = #{id, typeHandler = com.waffle.student.typehandler.TestTypeHandler}
             """)
     Student getStudent(@Param("id") int id);
 

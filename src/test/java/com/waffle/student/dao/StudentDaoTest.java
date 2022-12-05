@@ -1,7 +1,7 @@
-package com.mybatisSample.student.dao;
+package com.waffle.student.dao;
 
-import com.mybatisSample.student.exceptions.StudentNotFoundException;
-import com.mybatisSample.student.models.Student;
+import com.waffle.student.exceptions.StudentNotFoundException;
+import com.waffle.student.models.Student;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

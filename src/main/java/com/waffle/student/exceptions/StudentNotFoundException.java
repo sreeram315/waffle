@@ -1,4 +1,4 @@
-package com.mybatisSample.student.exceptions;
+package com.waffle.student.exceptions;
 
 public class StudentNotFoundException extends RuntimeException {
 
