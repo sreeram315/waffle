@@ -1,4 +1,4 @@
-package com.waffle.queue.models;
+package com.waffle.infra.queue.models;
 
 import com.google.gson.Gson;
 

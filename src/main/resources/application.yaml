@@ -14,18 +14,25 @@ cloud:
     credentials:
       access-key: AKIAYIFD4UGMQU4JIF74
       secret-key: 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
-    queue:
-      name: waffle-add-student
-      end-point: https://sqs.ap-south-1.amazonaws.com/567279395225/waffle-add-student
-    sns:
-      enables: false
-      topic:
-        arn: arn:aws:sns:ap-south-1:567279395225:testtopic
 student:
+  notificationService:
+    name: studentNotificationService
   cloud:
     queue:
       name: waffle-add-student
       endPoint: https://sqs.ap-south-1.amazonaws.com/567279395225/waffle-add-student
+    sns:
+      enabled: true
+      topic:
+        arn: arn:aws:sns:ap-south-1:567279395225:waffle-student
+notice:
+  notificationService:
+    name: studentNotificationService
+  cloud:
+    sns:
+      enabled: true
+      topic:
+        arn: arn:aws:sns:ap-south-1:567279395225:waffle-notice
 server:
   port: 8080
 
