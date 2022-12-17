@@ -1,10 +1,13 @@
 package com.waffle.student.queue;
 
 
-import com.google.gson.Gson;
-import com.google.gson.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.waffle.infra.notification.models.Message;
 import com.waffle.infra.queue.dao.QueueLogDao;
+import com.waffle.infra.queue.exceptions.JsonConversionExcetion;
 import com.waffle.infra.queue.models.QueueMessage;
 import com.waffle.infra.queue.service.QueueService;
 import com.waffle.student.dao.StudentDao;
@@ -46,13 +49,13 @@ public class StudentCreateQueue implements QueueService<Student> {
     private String name;
 
     @Override
-    public UUID send(Student student){
+    public UUID push(Student student){
         LOG.info("Sending message: {}", student);
         QueueMessage<Student> message = QueueMessage.with(student);
         UUID uuid = message.getId();
         queueLogDao.insert(name, uuid);
         queueMessagingTemplate.convertAndSend(endPoint, message.toJson());
-        queueLogDao.update_push_as_success(uuid);
+        queueLogDao.updatePushAsSuccess(uuid);
         LOG.info("Message published. UUID: {}", uuid);
         return uuid;
     }
@@ -65,7 +68,7 @@ public class StudentCreateQueue implements QueueService<Student> {
         QueueMessage<Student> queueMessage = fromJson(message);
         UUID uuid = queueMessage.getId();
         LOG.info("Received message with ID: {}", uuid);
-        queueLogDao.update_as_received(uuid);
+        queueLogDao.updateAsReceived(uuid);
         // Consume
         Student student = queueMessage.getPayload();
         LOG.info("Adding student to database. Student: {}", student);
@@ -74,19 +77,27 @@ public class StudentCreateQueue implements QueueService<Student> {
             studentProcessNotifier.notifyStudentAddition(Message.with("Student added", student.toString()));
         } catch (Exception e) {
             LOG.error("Student addition failed with exception", e);
-            queueLogDao.update_comment(uuid, e.getMessage());
+            queueLogDao.updateComment(uuid, e.getMessage());
         }
-        queueLogDao.update_as_consumed(uuid);
+        queueLogDao.updateAsConsumed(uuid);
         LOG.info("Message consumed UUID: {}", uuid);
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     private QueueMessage<Student> fromJson(String json) {
-        QueueMessage queueMessage = new Gson().fromJson(json, QueueMessage.class);
-        Student student = new Gson().fromJson(JsonParser.parseString(json).getAsJsonObject().get("payload").toString(),
-                Student.class);
-        queueMessage.setPayload(student);
-        return queueMessage;
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.registerModule(new JavaTimeModule());
+            mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+            QueueMessage queueMessage = mapper.readValue(json, QueueMessage.class);
+            String studentJsonString = mapper.readTree(json).get("payload").toString();
+            Student student = mapper.readValue(studentJsonString, Student.class);
+            queueMessage.setPayload(student);
+            return queueMessage;
+        }
+        catch (JsonProcessingException e){
+            throw new JsonConversionExcetion(e.getMessage());
+        }
     }
 
 }

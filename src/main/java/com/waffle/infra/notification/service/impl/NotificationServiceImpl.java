@@ -1,9 +1,10 @@
-package com.waffle.infra.notification.service;
+package com.waffle.infra.notification.service.impl;
 
 import com.amazonaws.services.sns.AmazonSNSClient;
 import com.amazonaws.services.sns.model.PublishRequest;
 import com.amazonaws.services.sns.model.SubscribeRequest;
 import com.waffle.infra.notification.models.Message;
+import com.waffle.infra.notification.service.NotificationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

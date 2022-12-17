@@ -17,10 +17,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0'
 	implementation 'junit:junit:4.13.2'
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+	implementation 'com.fasterxml.jackson.module:jackson-module-parameter-names'
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-	implementation 'com.h2database:h2:2.1.214'
 	runtimeOnly 'mysql:mysql-connector-java'
 
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
@@ -29,9 +32,6 @@ dependencies {
 	//	AWS
 	implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.4.2'
 	implementation 'io.awspring.cloud:spring-cloud-starter-aws-messaging:2.4.2'
-
-	implementation 'com.google.code.gson:gson:2.10'
-
 
 }
 

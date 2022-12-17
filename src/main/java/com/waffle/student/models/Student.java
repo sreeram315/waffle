@@ -1,24 +1,25 @@
 package com.waffle.student.models;
 
+import com.waffle.infra.queue.models.utils.Jsonable;
+
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Objects;
 
-public class Student implements Serializable {
-    int id;
-    String name;
+public class Student implements Jsonable, Serializable {
+    private int id;
+    private String name;
+    private LocalDateTime insertedAt;
 
-    public Student() {}
-
-    public Student(int id, String name) {
-
-        this.id = id;
-        this.name = name;
-    }
+    private Student() {}
 
     public static Student with(int id, String name) {
         Student s = new Student();
         s.id = id;
         s.name = name;
+        s.insertedAt = LocalDateTime.now(ZoneOffset.UTC);
         return s;
     }
 
@@ -38,17 +39,25 @@ public class Student implements Serializable {
         return name;
     }
 
+    public LocalDateTime getInsertedAt() {
+        return insertedAt;
+    }
+
+    public void setInsertedAt(LocalDateTime insertedAt) {
+        this.insertedAt = insertedAt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return id == student.id && Objects.equals(name, student.name);
+        return id == student.id && Objects.equals(name, student.name) && Objects.equals(insertedAt, student.insertedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, name, insertedAt);
     }
 
     @Override
@@ -56,6 +65,7 @@ public class Student implements Serializable {
         return "Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", insertedAt=" + insertedAt +
                 '}';
     }
 }

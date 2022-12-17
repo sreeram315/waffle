@@ -12,7 +12,7 @@ public interface StudentMapper {
     @Select("""
             SELECT id, name
             FROM student
-            WHERE id = #{id, typeHandler = com.waffle.student.typehandler.TestTypeHandler}
+            WHERE id = #{id, typeHandler = com.waffle.student.mapper.typehandler.TestTypeHandler}
             """)
     Student getStudent(@Param("id") int id);
 
