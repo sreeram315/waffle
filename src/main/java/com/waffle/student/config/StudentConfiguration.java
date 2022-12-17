@@ -1,7 +1,7 @@
 package com.waffle.student.config;
 
 import com.waffle.infra.notification.service.NotificationService;
-import com.waffle.infra.notification.service.NotificationServiceImpl;
+import com.waffle.infra.notification.service.impl.NotificationServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

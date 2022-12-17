@@ -1,4 +1,4 @@
-package com.waffle.infra.queue.typehandler;
+package com.waffle.infra.queue.mapper.typehandler;
 
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedTypes;

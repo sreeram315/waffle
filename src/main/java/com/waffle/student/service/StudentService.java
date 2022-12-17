@@ -1,10 +1,10 @@
 package com.waffle.student.service;
 
-import com.waffle.student.models.Student;
+import org.springframework.http.ResponseEntity;
 
 public interface StudentService {
 
-    Student getStudent(Integer id);
+    ResponseEntity<String> getStudent(Integer id);
 
-    String addStudent(int id, String name);
+    ResponseEntity<String> addStudent(int id, String name);
 }

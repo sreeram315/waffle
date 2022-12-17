@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public interface QueueService<T> {
 
-    UUID send(T t);
+    UUID push(T t);
 
     @SuppressWarnings("unused")
     void listen(String message);

@@ -1,4 +1,4 @@
-package com.waffle.student.typehandler;
+package com.waffle.student.mapper.typehandler;
 
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;

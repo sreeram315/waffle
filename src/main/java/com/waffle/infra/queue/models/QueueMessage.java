@@ -1,11 +1,12 @@
 package com.waffle.infra.queue.models;
 
-import com.google.gson.Gson;
+
+import com.waffle.infra.queue.models.utils.Jsonable;
 
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class QueueMessage<T> {
+public class QueueMessage<T> implements Jsonable {
     private UUID id;
     private static final AtomicLong currentId = new AtomicLong(1);
     private T payload;
@@ -18,6 +19,7 @@ public class QueueMessage<T> {
     }
 
     private QueueMessage() {}
+
 
     private static synchronized UUID generateId() {
         return UUID.randomUUID();
@@ -35,13 +37,9 @@ public class QueueMessage<T> {
         return payload;
     }
 
-    public String toJson() {
-        return new Gson().toJson(this);
-    }
-
     @Override
     public String toString() {
-        return "Message{" +
+        return "QueueMessage{" +
                 "id=" + id +
                 ", payload=" + payload +
                 '}';

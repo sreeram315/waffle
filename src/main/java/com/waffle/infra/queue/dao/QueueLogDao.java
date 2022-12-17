@@ -18,19 +18,19 @@ public class QueueLogDao {
         queueLogMapper.insert(queue_name, uuid, LocalDateTime.now());
     }
 
-    public void update_push_as_success(UUID uuid) {
-        queueLogMapper.update_as_pushed(uuid, LocalDateTime.now());
+    public void updatePushAsSuccess(UUID uuid) {
+        queueLogMapper.updateAsPushed(uuid, LocalDateTime.now());
     }
 
-    public void update_as_consumed(UUID uuid) {
-        queueLogMapper.update_as_consumed(uuid, LocalDateTime.now());
+    public void updateAsConsumed(UUID uuid) {
+        queueLogMapper.updateAsConsumed(uuid, LocalDateTime.now());
     }
 
-    public void update_as_received(UUID uuid) {
-        queueLogMapper.update_as_received(uuid, LocalDateTime.now());
+    public void updateAsReceived(UUID uuid) {
+        queueLogMapper.updateAsReceived(uuid, LocalDateTime.now());
     }
 
-    public void update_comment(UUID uuid, String message) {
-        queueLogMapper.update_comment(uuid, message);
+    public void updateComment(UUID uuid, String message) {
+        queueLogMapper.updateComment(uuid, message);
     }
 }

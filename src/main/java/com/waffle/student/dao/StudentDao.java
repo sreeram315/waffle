@@ -1,10 +1,13 @@
 package com.waffle.student.dao;
 
+import com.waffle.student.exceptions.StudentCreationException;
 import com.waffle.student.exceptions.StudentNotFoundException;
 import com.waffle.student.mapper.StudentMapper;
 import com.waffle.student.models.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.sql.SQLIntegrityConstraintViolationException;
 
 @Component
 public class StudentDao {
@@ -21,8 +24,11 @@ public class StudentDao {
     }
 
     public void insert(int id, String name) {
-        studentMapper.insertStudent(id, name);
-        this.getStudent(id);
+        try {
+            studentMapper.insertStudent(id, name);
+        } catch (Exception exception) {
+            throw StudentCreationException.with(id);
+        }
     }
 
     public void insert(Student student) {
